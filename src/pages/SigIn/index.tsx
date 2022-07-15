@@ -1,12 +1,18 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from "react-native";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function SignIn(){
+    const {signIn} = useContext(AuthContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    function handleLogin(){
-        console.log("Teste");
+    async function handleLogin(){
+        if(email === '' || password === ''){
+            return;
+        }
+
+        await signIn({email, password})
         
     }
     return(
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '1D1d2e'
+        backgroundColor: '#1D1d2e'
     },
     logo:{
         marginBottom: 18
